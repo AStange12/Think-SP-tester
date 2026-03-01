@@ -1,0 +1,421 @@
+{
+  "version": "2.8",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Reddit to Think - Web App",
+      "clip": true,
+      "width": 1280,
+      "fill": "#F5F5F0",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "8Kbyj",
+          "name": "Header",
+          "width": 1280,
+          "height": 75,
+          "fill": "#1C1C2E",
+          "gap": 12,
+          "padding": [
+            24,
+            40
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "icon_font",
+              "id": "G0zAj",
+              "name": "logoIcon",
+              "width": 22,
+              "height": 22,
+              "iconFontName": "brain-circuit",
+              "iconFontFamily": "lucide",
+              "fill": "#8B7EC8"
+            },
+            {
+              "type": "text",
+              "id": "Ei6MV",
+              "name": "titleText",
+              "fill": "#F5F5F0",
+              "content": "reddit-to-think",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 16,
+              "fontWeight": "600",
+              "letterSpacing": 0.5
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "cT8jb",
+          "name": "Main Content",
+          "width": 1280,
+          "height": 934,
+          "layout": "vertical",
+          "gap": 32,
+          "padding": [
+            48,
+            120
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Epcql",
+              "name": "sectionLabel",
+              "fill": "#8B7EC8",
+              "content": "INPUT",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 11,
+              "fontWeight": "600",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "LP4RI",
+              "name": "Input Card",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E0DFE3"
+              },
+              "layout": "vertical",
+              "gap": 24,
+              "padding": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "FT1Qz",
+                  "name": "URL Field Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "03w7u",
+                      "name": "urlLabel",
+                      "fill": "#1C1C2E",
+                      "content": "Reddit URL",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "LcJBD",
+                      "name": "URL Input",
+                      "width": "fill_container",
+                      "height": 44,
+                      "fill": "#F5F5F0",
+                      "cornerRadius": 6,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#D4D3D8"
+                      },
+                      "gap": 10,
+                      "padding": [
+                        0,
+                        14
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "2sVGw",
+                          "name": "urlIcon",
+                          "width": 16,
+                          "height": 16,
+                          "iconFontName": "link",
+                          "iconFontFamily": "lucide",
+                          "fill": "#9490A3"
+                        },
+                        {
+                          "type": "text",
+                          "id": "EFBb2",
+                          "name": "urlPlaceholder",
+                          "fill": "#9490A3",
+                          "content": "https://reddit.com/r/...",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 13
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "M7ems",
+                  "name": "Prompt Field Group",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "xXZVT",
+                      "name": "promptLabel",
+                      "fill": "#1C1C2E",
+                      "content": "System Prompt",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZhdkR",
+                      "name": "Prompt Textarea",
+                      "width": "fill_container",
+                      "height": 140,
+                      "fill": "#F5F5F0",
+                      "cornerRadius": 6,
+                      "stroke": {
+                        "thickness": 1,
+                        "fill": "#D4D3D8"
+                      },
+                      "layout": "vertical",
+                      "padding": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "jeFV7",
+                          "name": "promptPlaceholder",
+                          "fill": "#9490A3",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Enter system prompt instructions...",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 13
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "HckMs",
+                      "name": "promptHint",
+                      "fill": "#9490A3",
+                      "content": "Functionality TBD — placeholder for future prompt configuration",
+                      "fontFamily": "Inter",
+                      "fontSize": 11
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "3wLpB",
+                  "name": "Button Row",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "justifyContent": "end",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "N1Dzd",
+                      "name": "Parse Button",
+                      "fill": "#7B68AE",
+                      "cornerRadius": 6,
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "HcjMO",
+                          "name": "parseBtnIcon",
+                          "width": 14,
+                          "height": 14,
+                          "iconFontName": "play",
+                          "iconFontFamily": "lucide",
+                          "fill": "#FFFFFF"
+                        },
+                        {
+                          "type": "text",
+                          "id": "w28iT",
+                          "name": "parseBtnText",
+                          "fill": "#FFFFFF",
+                          "content": "Run",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "YgtPi",
+              "name": "outputLabel",
+              "fill": "#8B7EC8",
+              "content": "OUTPUT",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 11,
+              "fontWeight": "600",
+              "letterSpacing": 2
+            },
+            {
+              "type": "frame",
+              "id": "z2cwd",
+              "name": "Output Card",
+              "width": "fill_container",
+              "fill": "#FFFFFF",
+              "cornerRadius": 8,
+              "stroke": {
+                "thickness": 1,
+                "fill": "#E0DFE3"
+              },
+              "layout": "vertical",
+              "gap": 16,
+              "padding": 32,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "7u1dE",
+                  "name": "Output Header",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OUVfN",
+                      "name": "outputTitle",
+                      "fill": "#1C1C2E",
+                      "content": "Output",
+                      "fontFamily": "Inter",
+                      "fontSize": 15,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gS0Kn",
+                      "name": "statusBadge",
+                      "enabled": false,
+                      "fill": "#E8E6EF",
+                      "cornerRadius": 100,
+                      "gap": 6,
+                      "padding": [
+                        4,
+                        10
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "ellipse",
+                          "id": "JMpKA",
+                          "name": "statusDot",
+                          "fill": "#9490A3",
+                          "width": 6,
+                          "height": 6
+                        },
+                        {
+                          "type": "text",
+                          "id": "NvZIC",
+                          "name": "statusText",
+                          "fill": "#7B7889",
+                          "content": "Idle",
+                          "fontFamily": "JetBrains Mono",
+                          "fontSize": 11,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "Akq6O",
+                  "name": "divider",
+                  "fill": "#EEEDF1",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "8xLhy",
+                  "name": "Empty State",
+                  "width": "fill_container",
+                  "height": 200,
+                  "fill": "#FAFAF8",
+                  "cornerRadius": 6,
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E8E6EF"
+                  },
+                  "layout": "vertical",
+                  "gap": 12,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "46LBN",
+                      "name": "emptyIcon",
+                      "width": 32,
+                      "height": 32,
+                      "iconFontName": "file-text",
+                      "iconFontFamily": "lucide",
+                      "fill": "#C4C1CF"
+                    },
+                    {
+                      "type": "text",
+                      "id": "usolA",
+                      "name": "emptyText",
+                      "fill": "#9490A3",
+                      "content": "System Prompt output will appear here",
+                      "fontFamily": "Inter",
+                      "fontSize": 14
+                    },
+                    {
+                      "type": "text",
+                      "id": "367w6",
+                      "name": "emptyHint",
+                      "enabled": false,
+                      "fill": "#B8B5C3",
+                      "content": "Format and content TBD",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "T4IvX",
+          "name": "Footer",
+          "width": "fill_container",
+          "padding": [
+            16,
+            40
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "Rdnt9",
+              "name": "footerLeft",
+              "fill": "#B8B5C3",
+              "content": "reddit-to-think parser · internal tool",
+              "fontFamily": "JetBrains Mono",
+              "fontSize": 11
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
