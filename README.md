@@ -6,6 +6,41 @@ An internal web tool for testing AI system prompts against real Reddit discussio
 
 Banjo's core product coaches students through structured discussions using AI. The quality of that coaching depends heavily on the system prompts used. This tool lets the team rapidly test and evaluate different prompts against real-world argumentative discussions sourced from Reddit's [r/ChangeMyView](https://www.reddit.com/r/changemyview/) — a community where users argue positions and genuinely try to change each other's minds.
 
+## Running Locally
+
+### Prerequisites
+- Python 3.8+
+- Groq API key (free at console.groq.com)
+
+### Setup
+
+1. **Clone the repository**
+```bash
+   git clone https://github.com/AStange12/Think-SP-tester.git
+   cd Think-SP-tester/webapp
+```
+
+2. **Install dependencies**
+```bash
+   pip install -r requirements.txt
+```
+
+3. **Set up environment variables**
+   
+   Create a `.env` file in the `webapp/` directory:
+```
+   GROQ_API_KEY=your_api_key_here
+```
+
+4. **Run the application**
+```bash
+   python app.py
+```
+
+5. **Open in browser**
+   
+   Navigate to: http://localhost:5000
+
 **Workflow:**
 1. Paste a Reddit CMV thread URL
 2. The app fetches and parses the thread into Think JSON (Banjo's internal discussion format)
