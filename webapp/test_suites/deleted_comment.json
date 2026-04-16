@@ -1,0 +1,18 @@
+{
+  "name": "deleted_comment",
+  "type": "comments",
+  "items": [
+    {
+      "text": "[deleted]",
+      "author": "[deleted]",
+      "source": "Example: deleted comment — will be skipped automatically",
+      "id": "d46b2439"
+    },
+    {
+      "text": "I think immigration policy should focus on merit-based selection rather than purely family ties. Countries like Canada have shown that points-based systems can balance humanitarian goals with economic needs.",
+      "author": "policy_example",
+      "source": "Example: normal comment — will be evaluated",
+      "id": "a1b2c3d4"
+    }
+  ]
+}

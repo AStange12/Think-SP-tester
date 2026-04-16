@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>reddit-to-think</title>
+    <title>Reddit Thread Thinks — SP Tester</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,14 +13,7 @@
 
     <header class="header">
         <div class="header-left">
-            <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
-                <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
-                <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
-                <path d="M12 18v-5.5a.5.5 0 0 0-1 0V18"/>
-            </svg>
-            <span class="header-title">reddit-to-think</span>
-            <span class="header-badge">v0.1</span>
+            <span class="header-title">Reddit Thread Thinks — SP Tester</span>
         </div>
     </header>
 
@@ -28,7 +21,15 @@
         <span class="section-label">INPUT</span>
 
         <div class="card">
-            <div class="field-group">
+
+            <!-- Input mode tabs -->
+            <div class="input-tabs">
+                <button id="tab-url" class="tab-btn tab-btn--active">Reddit URL</button>
+                <button id="tab-paste" class="tab-btn">Paste Comment</button>
+            </div>
+
+            <!-- URL mode -->
+            <div id="url-mode" class="field-group">
                 <label class="field-label" for="url-input">Reddit URL</label>
                 <div class="input-wrapper">
                     <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -39,28 +40,116 @@
                 </div>
             </div>
 
+            <!-- Paste mode -->
+            <div id="paste-mode" class="hidden">
+                <div class="field-group">
+                    <label class="field-label" for="paste-textarea">Comment Text</label>
+                    <textarea id="paste-textarea" class="textarea" placeholder="Paste a comment to evaluate..."></textarea>
+                </div>
+                <div class="paste-meta-row">
+                    <input type="text" id="paste-author" class="paste-meta-input" placeholder="Author (optional)">
+                    <input type="text" id="paste-source" class="paste-meta-input" placeholder="Source / context (optional)">
+                    <button id="save-comment-btn" class="btn-secondary btn-sm">
+                        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        Save to Suite
+                    </button>
+                </div>
+            </div>
+
+            <!-- Suite panel -->
+            <div class="suite-panel">
+                <span class="suite-panel-label">Test Suite</span>
+                <select id="suite-select" class="saved-select">
+                    <option value="" selected>— no suites —</option>
+                </select>
+                <button id="new-suite-btn" class="btn-secondary btn-sm">+ New</button>
+                <button id="import-suite-btn" class="btn-secondary btn-sm" title="Import suite from JSON file">↑ Import</button>
+                <input type="file" id="import-suite-input" accept=".json" style="display:none">
+                <button id="delete-suite-btn" class="btn-secondary btn-sm btn-icon-only" disabled title="Delete selected suite">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"/>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+                    </svg>
+                </button>
+                <span id="suite-info" class="suite-info hidden"></span>
+                <button id="add-to-suite-btn" class="btn-secondary btn-sm hidden" title="Save current thread to a threads suite">
+                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    Save Thread
+                </button>
+            </div>
+
+            <!-- Suite items list (shown when suite has items) -->
+            <div id="suite-items" class="suite-items hidden"></div>
+
+            <!-- System Prompt -->
             <div class="field-group">
                 <div class="field-label-row">
-                    <label class="field-label" for="prompt-textarea">System Prompt</label>
-                    <select id="mode-select" class="mode-select">
-                        {% for key, prompt in prompts.items() %}
-                        <option value="{{ key }}" {% if key == default_mode %}selected{% endif %}>
-                            {{ prompt.label }}
-                        </option>
-                        {% endfor %}
-                    </select>
+                    <label class="field-label" id="sp-label">System Prompt</label>
+                    <div class="mode-controls">
+                        <select id="mode-select" class="mode-select">
+                            {% for key, prompt in prompts.items() %}
+                            <option value="{{ key }}" {% if key == default_mode %}selected{% endif %}>
+                                {{ prompt.label }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div id="comment-select-group" class="comment-select-group hidden">
+                            <select id="comment-mode" class="comment-mode-select">
+                                <option value="all">All comments</option>
+                                <option value="range">Range</option>
+                                <option value="random" selected>Random</option>
+                            </select>
+                            <div id="range-inputs" class="comment-extra hidden">
+                                <input type="number" id="range-start" class="comment-num-input" placeholder="1" min="1">
+                                <span class="range-sep">–</span>
+                                <input type="number" id="range-end" class="comment-num-input" placeholder="10" min="1">
+                            </div>
+                            <div id="random-inputs" class="comment-extra">
+                                <input type="number" id="random-count" class="comment-num-input" placeholder="4" min="1" value="4">
+                                <span class="comment-extra-label">random</span>
+                            </div>
+                        </div>
+                        <button id="compare-toggle" class="tab-btn">Compare</button>
+                    </div>
                 </div>
+                <div id="comment-warning" class="comment-warning hidden"></div>
                 <textarea id="prompt-textarea" class="textarea" placeholder="Enter system prompt instructions...">{{ prompts[default_mode].text }}</textarea>
                 <span class="field-hint">Select a mode above or edit the prompt directly</span>
             </div>
 
+            <!-- SP B (hidden until Compare toggled) -->
+            <div id="compare-sp" class="hidden field-group">
+                <label class="field-label">System Prompt B</label>
+                <textarea id="prompt-textarea-b" class="textarea" placeholder="Enter second system prompt to compare..."></textarea>
+            </div>
+
+            <!-- Button row -->
             <div class="button-row">
-                <button id="run-btn" class="btn-primary">
+                <button id="download-json-btn" class="btn-secondary hidden">
                     <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="6 3 20 12 6 21 6 3"/>
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
                     </svg>
-                    Run
+                    Download JSON
                 </button>
+                <div class="run-group">
+                    <span id="run-hint" class="run-hint hidden"></span>
+                    <button id="run-btn" class="btn-primary">
+                        <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="6 3 20 12 6 21 6 3"/>
+                        </svg>
+                        <span id="run-btn-text">Run</span>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -81,7 +170,7 @@
                         <path d="M16 13H8"/>
                         <path d="M16 17H8"/>
                     </svg>
-                    <span class="empty-text">System Prompt output will appear here</span>
+                    <span class="empty-text">Output and errors will display here</span>
                 </div>
             </div>
             <div id="download-row" class="button-row hidden">
@@ -91,7 +180,15 @@
                         <polyline points="7 10 12 15 17 10"/>
                         <line x1="12" y1="15" x2="12" y2="3"/>
                     </svg>
-                    Download .md
+                    <span id="download-btn-text">Download .md</span>
+                </button>
+                <button id="download-btn-b" class="btn-secondary hidden">
+                    <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    SP B .md
                 </button>
             </div>
         </div>
@@ -102,7 +199,96 @@
         <span>Reddit-to-Think-prj1</span>
     </footer>
 
-    <!-- Prompt data for JS -->
+    <!-- ── Modals ──────────────────────────────────────────────────── -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+
+        <!-- New Suite Modal -->
+        <div id="modal-new-suite" class="modal hidden">
+            <div class="modal-header">
+                <span class="modal-title">New Suite</span>
+                <button class="modal-close-btn" data-close-modal="modal-new-suite">&#x2715;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field">
+                    <label class="modal-label" for="modal-suite-name">Name</label>
+                    <input type="text" id="modal-suite-name" class="text-input" placeholder="Suite name">
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Type</label>
+                    <div class="modal-type-toggle">
+                        <button id="modal-type-comments" class="type-btn type-btn--active">Comments</button>
+                        <button id="modal-type-threads" class="type-btn">Threads</button>
+                    </div>
+                </div>
+                <div id="modal-new-suite-error" class="modal-error hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-suite-cancel" class="btn-secondary">Cancel</button>
+                <button id="modal-suite-create" class="btn-primary">Create Suite</button>
+            </div>
+        </div>
+
+        <!-- Confirm Modal -->
+        <div id="modal-confirm" class="modal hidden">
+            <div class="modal-header">
+                <span class="modal-title" id="modal-confirm-title">Confirm</span>
+            </div>
+            <div class="modal-body">
+                <p id="modal-confirm-message" class="modal-message"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-confirm-cancel" class="btn-secondary">Cancel</button>
+                <button id="modal-confirm-ok" class="btn-primary">Confirm</button>
+            </div>
+        </div>
+
+        <!-- Import Suite Modal -->
+        <div id="modal-import-suite" class="modal hidden">
+            <div class="modal-header">
+                <span class="modal-title">Import Suite</span>
+                <button class="modal-close-btn" data-close-modal="modal-import-suite">&#x2715;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-field">
+                    <label class="modal-label" for="modal-import-name">Name</label>
+                    <input type="text" id="modal-import-name" class="text-input" placeholder="Suite name">
+                </div>
+                <div class="modal-field">
+                    <label class="modal-label">Type</label>
+                    <div class="modal-type-toggle">
+                        <button id="modal-import-type-comments" class="type-btn type-btn--active">Comments</button>
+                        <button id="modal-import-type-threads" class="type-btn">Threads</button>
+                    </div>
+                </div>
+                <div id="modal-import-info" class="modal-import-info"></div>
+                <div id="modal-import-error" class="modal-error hidden"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="modal-import-cancel" class="btn-secondary">Cancel</button>
+                <button id="modal-import-ok" class="btn-primary">Import</button>
+            </div>
+        </div>
+
+        <!-- Suite Picker Modal (file-explorer style) -->
+        <div id="modal-suite-picker" class="modal modal--wide hidden">
+            <div class="modal-header">
+                <span class="modal-title" id="modal-picker-title">Save to Suite</span>
+                <button class="modal-close-btn" data-close-modal="modal-suite-picker">&#x2715;</button>
+            </div>
+            <div class="modal-body--explorer" id="picker-suite-list">
+                <!-- folders rendered here -->
+            </div>
+            <div class="modal-footer">
+                <button id="picker-new-suite-btn" class="btn-secondary">+ New Suite</button>
+                <div class="modal-footer-right">
+                    <button id="picker-cancel-btn" class="btn-secondary">Cancel</button>
+                    <button id="picker-save-btn" class="btn-primary" disabled>Save</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
     <script>
         window.PROMPTS = {{ prompts | tojson }};
     </script>
