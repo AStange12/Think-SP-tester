@@ -1,3 +1,4 @@
+import html
 import json
 import os
 import sys
@@ -41,7 +42,7 @@ def build_response(comment, children_by_parent):
     response = {
         id_key: comment["id"],
         "author": comment.get("author", "[unknown]"),
-        "text": comment.get("body", ""),
+        "text": html.unescape(comment.get("body", "")),
         "created_at": unix_to_iso(comment["created_utc"]),
         "influences": comment.get("ups", 0),
         "is_think_manager": comment.get("is_submitter", False),

@@ -2,6 +2,7 @@
 
 import os
 import copy
+import html
 import json
 import random
 import requests
@@ -94,6 +95,21 @@ def _select_nodes(all_nodes: list, selection: dict) -> tuple:
     return all_nodes, ""
 
 
+def _format_comment_text(text: str) -> str:
+    """Replace > quoted lines with labeled context so the LLM knows
+    they are referenced text, not the commenter's own words.
+    Handles both decoded (>) and HTML-encoded (&gt;) quote markers
+    so old saved threads work alongside newly parsed ones."""
+    lines = []
+    for line in html.unescape(text).split("\n"):
+        stripped = line.lstrip("> ").strip()
+        if line.lstrip().startswith(">") and stripped:
+            lines.append(f"[quoting: \"{stripped}\"]")
+        else:
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def _evaluate_coach(think_json: dict, system_prompt: str, comment_selection: dict = None) -> tuple:
     """Per-comment evaluation.
 
@@ -113,7 +129,7 @@ def _evaluate_coach(think_json: dict, system_prompt: str, comment_selection: dic
     for resp in to_process:
         resp_id = resp.get("response_id") or resp.get("reply_id", "?")
         author  = resp.get("author", "unknown")
-        text    = (resp.get("text") or "").strip()
+        text    = _format_comment_text((resp.get("text") or "").strip())
         if not text or text.lower() in ("[deleted]", "[removed]"):
             continue
 
@@ -174,7 +190,7 @@ def _format_replies_xml(responses: list, counter: list = None) -> str:
         counter = [0]
     lines = []
     for node in responses:
-        text   = (node.get("text") or "").strip()
+        text   = _format_comment_text((node.get("text") or "").strip())
         author = node.get("author", "unknown")
         if text and text.lower() not in ("[deleted]", "[removed]"):
             counter[0] += 1
